@@ -1,5 +1,6 @@
 package com.servicio_recetas.ms_recetas.controller;
 
+import com.servicio_recetas.ms_recetas.dto.RecetaDTO;
 import com.servicio_recetas.ms_recetas.model.Receta;
 import com.servicio_recetas.ms_recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,15 @@ public class RecetaController {
     }
 
     @PostMapping
-    public Receta crear(@RequestBody Receta receta) {
+    public Receta crear(@RequestBody RecetaDTO dto) {
+        // Pasamos los datos del DTO a la Entidad
+        Receta receta = new Receta();
+        receta.setIdCita(dto.getIdCita());
+        receta.setIdPaciente(dto.getIdPaciente());
+        receta.setIdMedico(dto.getIdMedico());
+        receta.setFechaEmision(dto.getFechaEmision());
+        receta.setEstado(dto.getEstado());
+        
         return recetaService.guardar(receta);
     }
 
